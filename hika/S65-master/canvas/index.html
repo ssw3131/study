@@ -1,0 +1,74 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<title>s65-canvas</title>
+<meta charset="utf-8"/>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="format-detection" content="telephone=no"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1,minimum-scale=1"/>
+</head>
+<body>
+<div id="stage"><canvas id="canvas" width="600" height="400"></canvas></div>
+<script src="Css.js"></script>
+<script src="V.js"></script>
+<script src="CanvasPaint.js"></script>
+<script src="tags.js"></script>
+<script>
+{
+	const stage = new V.Stage(new CanvasPaint(document.getElementById('canvas')));
+	const div = new Div();
+
+	const img0 = new Img('1.jpg');
+	const img1 = new Img('2.jpg');
+	const img2 = new Img('3.jpg');
+	
+	img0.addListener('click', e=>{
+		console.log('click0', e.isCapture)
+	})
+	img1.addListener('click', e=>{
+		console.log('click1', e.isCapture)
+	})
+	img2.addListener('click', e=>{
+		console.log('click2', e.isCapture)
+	})
+	{
+		let loaded = 0;
+		const cb = _=>++loaded == 3 ? start() : 0;
+		img0.addListener('load', cb);
+		img1.addListener('load', cb);
+		img2.addListener('load', cb);
+	}
+	img1.style.margin = 10;
+	div.addChild(img0);
+	div.addChild(img1);
+	div.addChild(img2);
+	
+	const span = new Span('안녕하세요');
+	span.style.fontSize = '30px'
+	div.addChild(span);
+	
+	stage.addChild(div);
+	
+	const start = _=>{
+		let color = 100;
+		let loop = _=>{
+			
+			if(img1.style.margin++>40) img1.style.margin = 10;
+			if(color++<255) div.style.backgroundColor = ['rgb(255', color, color].join(',')+  ')';
+			else color = 100;
+			
+			
+			stage.render();
+			requestAnimationFrame(loop);
+		}
+		loop();
+	};
+}
+</script>
+</body>
+</html>

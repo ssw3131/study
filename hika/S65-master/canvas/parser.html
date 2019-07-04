@@ -1,0 +1,76 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<title>s65-canvas</title>
+<meta charset="utf-8"/>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="format-detection" content="telephone=no"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1,minimum-scale=1"/>
+</head>
+<body>
+<div id="stage"><canvas id="canvas" width="600" height="400"></canvas></div>
+<script src="Css.js"></script>
+<script src="V.js"></script>
+<script src="CanvasPaint.js"></script>
+<script src="tags.js"></script>
+<script>
+
+const htmlParse = (_=>{
+	const parse = (_=>{
+		var worker = new DOMParser;
+		return v=>worker.parseFromString(v, "text/xml");
+	})()
+	const attrGen = function*(attr){
+		let i = attr.length;
+		while(i--) yield attr[i];
+	}
+	return (stage, v)=>{
+		const stack = [];
+		console.log(parse(v))
+		v = {nodes:[parse(v).firstChild], parent:stage};
+		do{
+			for(let i = 0, j = v.nodes.length; i < j; i++){
+				let parent = v.parent, node = v.nodes[i], el, attr = {}, k;
+				console.log(node.nodeName, node.nodeType)
+				if(node.nodeType == 1){
+					if(node.attributes && node.attributes.length){
+						for(let {name, value} of attrGen(node.attributes)) attr[name] = value;
+					}
+					switch(node.nodeName.toLowerCase()){
+					case'img': el = new Img(attr.src); break;
+					case'div': el = new Div(); console.log('div', parent);break;
+					case'span': el = new Span(node.textContent); break;
+					}
+					if(el){
+						console.log(el, el.tagName, parent.tagName)
+						if(attr.style){
+						}
+						parent.addChild(el);
+						if(node.childNodes && node.childNodes.length) stack.push({parent:el, nodes:node.childNodes});
+					}
+				}
+			}
+		}while(v = stack.pop())
+	}
+})()
+{
+	const stage = new V.Stage(new CanvasPaint(document.getElementById('canvas')));
+	htmlParse(stage, `
+		<div>
+			<img src="1.jpg"/>
+			<img src="2.jpg"/>
+			<img src="3.jpg"/>
+			<span>안녕하세요</span>
+		</div>
+
+	`)
+	setInterval(function(){stage.render()}, 10);
+}
+</script>
+</body>
+</html>
