@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Dk testCase - 테스트케이스</title>
+	<meta name="keywords" content="Dk garnet"/>
+	<meta name="description" content="Dk garnet"/>
+	<meta charset="utf-8"/>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<meta name="format-detection" content="telephone=no"/>
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+	<meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+	<meta name="viewport"
+		  content="width=device-width,user-scalable=no,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,target-densitydpi=medium-dpi,shrink-to-fit=no"/>
+
+	<!--css-->
+	<link rel="stylesheet" type="text/css" href="css/reset.css">
+	<link rel="stylesheet" type="text/css" href="css/common.css">
+	<style>
+		html, body{ height: 100%; }
+
+		body{
+			color: #fff;
+			font-size: 50px;
+		}
+
+		#visual{ height: 100%; overflow: hidden; }
+
+		#visual > ul{ position: relative; height: 100%; }
+
+		#visual > ul > li{ position: absolute; display: block; top: 0; width: 100%; height: 100%; }
+
+		#visual > ul > li .bg{ position: fixed; background-size: cover; background-position: center; width: 100%; height: 100%; }
+
+		#visual > ul > li .con{ position: relative; height: 100%; }
+
+		#visual > ul > li .ani{ position: absolute; }
+
+		#sub{ position: relative; }
+
+		#sub > img{ width: 100%; }
+	</style>
+
+	<!--CDN links for TweenLite, CSSPlugin, and EasePack-->
+	<script src="greensock/plugins/CSSPlugin.min.js"></script>
+	<script src="greensock/easing/EasePack.min.js"></script>
+	<script src="greensock/TweenLite.min.js"></script>
+	<script src="greensock/TweenMax.min.js"></script>
+
+
+	<!--host-->
+	<!--<script src="http://ssw3131.github.io/garnet/vender/stats/stats.min.js"></script>-->
+	<!--<script src="http://ssw3131.github.io/garnet/v0.4/dkLog.js"></script>-->
+	<script src="http://ssw3131.github.io/garnet/v0.4/garnet.js"></script>
+
+	<script>
+		dk( function(){
+			dk.fn( 'gesture', function( $cb ){
+				var moveX, moveY, speedX, move, isGesture;
+				dk.MOUSE.S( 'gesture', function( $e ){
+					var r = { type : $e.type, direction : null, speed : null };
+					switch( $e.type ){
+						case 'down' :
+							moveX = 0, moveY = 0, speedX = 0, isGesture = false, move = false;
+							break;
+						case 'up' :
+							if( isGesture ) r.direction = moveX > 0 ? 'right' : moveX < 0 ? 'left' : null, r.moveX = moveX, r.speed = Math.abs( speedX ), $cb( r ), isGesture = false, move = false;
+							break;
+						default:
+							moveX = r.moveX = dk.MOUSE.moveX, moveY = dk.MOUSE.moveY, speedX = dk.MOUSE.speedX;
+							if( moveX != 0 && Math.abs( moveX ) / Math.abs( moveY ) > 3 && !move ){
+								$e.nativeEvent.preventDefault(), isGesture = true, $cb( r );
+							}else{
+								isGesture ? ( $e.nativeEvent.preventDefault(), $cb( r ) ) : null;
+							}
+							move = true;
+							break;
+					}
+				} );
+			} );
+
+			var init, moveX = 0, idx = 0, leng, isMove = false, actAni;
+			init = function(){
+				var liList, i, aniList, ani;
+				dk.RESIZE.dispatchEvent();
+				liList = dk.Dom( '#visual > ul > li' ), leng = i = liList.length;
+				while( i-- ){
+					liList.domList[ i ].S( 'left', i * 100 + '%' );
+				}
+
+				aniList = dk.Dom( '.ani' ), i = aniList.length;
+				while( i-- ){
+					ani = aniList.domList[ i ];
+					ani.S( '@data-x', parseFloat( ani.S( 'left' ) ), '@data-y', parseFloat( ani.S( 'top' ) ) );
+				}
+
+				dk.Dom( '#visual' ).S( 'height', dk.WIN.height + 60 );
+				dk.Dom( '#visual > ul > li .bg' ).S( 'height', dk.WIN.height + 60 );
+
+				actAni( idx, 0, 0 );
+			};
+
+			dk.gesture( function( $e ){
+				if( isMove ) return;
+				var posX, time;
+				switch( $e.type ){
+					case 'move':
+						posX = $e.moveX / dk.WIN.width * 100 / 2 + moveX;
+						dk.Dom( '#visual > ul' ).S( 'left', posX + '%' );
+						break;
+					case 'up':
+						isMove = true;
+						if( $e.direction == 'left' ){
+							idx = ++idx >= leng ? leng - 1 : idx;
+						}else if( $e.direction == 'right' ){
+							idx = --idx < 0 ? 0 : idx;
+						}
+						moveX = posX = idx * -100;
+						time = ( 100 - $e.speed ) / 100;
+						TweenLite.to( dk.Dom( '#visual > ul' ).elList, time, { left : moveX + '%', ease : Cubic.easeOut, onComplete : function(){ isMove = false } } );
+
+						actAni( idx, moveX, time );
+
+						break;
+				}
+			} );
+
+			actAni = function( $idx, $moveX, $time ){
+				var i = leng, aniList, j, posX;
+				while( i-- ){
+					aniList = dk.Dom( '#visual > ul > li:nth-child(' + ( i + 1 ) + ') .ani' ), j = aniList.length;
+					while( j-- ){
+						posX = parseFloat( aniList.domList[ j ].S( '@data-x' ) );
+						if( i < $idx ){
+							posX -= 50 + 50 * j;
+						}else if( i > $idx ){
+							posX += 50 + 50 * j;
+						}
+						TweenLite.to( aniList.elList[ j ], $time + j * 0.2, { left : posX + '%', ease : Cubic.easeOut } );
+					}
+				}
+			};
+
+			init();
+		} )
+	</script>
+</head>
+<body>
+<div id="visual">
+	<ul>
+		<li>
+			<div class="bg"
+				 style="background-image: url(http://cfile21.uf.tistory.com/image/145A9A1D49E4908B65FE1D)"></div>
+			<div class="con">
+				<div class="ani" style="left:10%; top:10%;">aaaaaa</div>
+				<div class="ani" style="left:20%; top:20%;">bbbbbb</div>
+				<div class="ani" style="left:30%; top:30%;">cccccc</div>
+			</div>
+		</li>
+		<li>
+			<div class="bg"
+				 style="background-image: url(http://www.matcl.com/files/attach/images/2791205/936/827/002/3242cecd541aec083cd45b249cc49ea7.png)"></div>
+			<div class="con">
+				<div class="ani" style="left:10%; top:10%;">aaaaaa</div>
+				<div class="ani" style="left:20%; top:20%;">bbbbbb</div>
+				<div class="ani" style="left:30%; top:30%;">cccccc</div>
+			</div>
+		</li>
+		<li>
+			<div class="bg"
+				 style="background-image: url(http://cfile8.uf.tistory.com/image/136FC03E50D3961D1E9FDB)"></div>
+			<div class="con">
+				<div class="ani" style="left:10%; top:10%;">aaaaaa</div>
+				<div class="ani" style="left:20%; top:20%;">bbbbbb</div>
+				<div class="ani" style="left:30%; top:30%;">cccccc</div>
+			</div>
+		</li>
+	</ul>
+</div>
+<div id="sub">
+	<img src="http://img14.deviantart.net/6920/i/2011/162/3/e/goku_genkidama_by_boscha196-d3imit4.png">
+</div>
+</body>
+</html>
+
+
