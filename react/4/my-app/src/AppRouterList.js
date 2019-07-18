@@ -6,8 +6,9 @@ function AppRouterList() {
     <div>
       <ul>
         <li><Link to="/App">App</Link></li>
-        <li><Link to="/MainConcept2">JSX 소개</Link></li>
-        <li><Link to="/MainConcept4">Components and Props</Link></li>
+        <li><Link to="/MainConcept2">2 JSX 소개</Link></li>
+        <li><Link to="/MainConcept4">4 Components and Props</Link></li>
+        <li><Link to="/MainConcept5">5 State와 생명주기</Link></li>
       </ul>
     </div>
   );
