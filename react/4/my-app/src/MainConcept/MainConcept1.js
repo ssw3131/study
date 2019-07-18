@@ -1,6 +1,5 @@
 import React from 'react';
 
-
 function MainConcept1() {
   const name = 'Josh Perez';
   const user = {
