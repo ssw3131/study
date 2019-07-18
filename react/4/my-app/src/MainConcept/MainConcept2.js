@@ -1,6 +1,6 @@
 import React from 'react';
 
-function MainConcept1() {
+function MainConcept2() {
   const name = 'Josh Perez';
   const user = {
     firstName : 'Harper',
@@ -31,4 +31,4 @@ function MainConcept1() {
   );
 }
 
-export default MainConcept1;
+export default MainConcept2;
