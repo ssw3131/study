@@ -28,7 +28,7 @@ class Clock extends React.Component {
 
   tick() {
     this.setState( { date: new Date() } );
-    this.setState( state => { counter: ++state.counter } );
+    this.setState( state => ( { counter: ++state.counter } ) );
   }
 
   render() {
@@ -38,19 +38,20 @@ class Clock extends React.Component {
         <FormattedDate date={this.state.date} />
         <p>{this.state.counter}</p>
       </div>
-    )
+    );
   }
 }
+class MainConcept5 extends React.Component {
 
-function MainConcept5() {
-
-  return (
-    <div>
-      <Clock />
-      <Clock />
-      <Clock />
-    </div>
-  );
+  render() {
+    return (
+      <div>
+        <Clock />
+        <Clock />
+        <Clock />
+      </div>
+    );
+  }
 }
 
 export default MainConcept5;
