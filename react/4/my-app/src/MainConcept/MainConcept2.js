@@ -14,9 +14,9 @@ function getGreeting(user) {
 function MainConcept2() {
   const name = 'Josh Perez';
   const user = {
-    firstName : 'Harper',
-    lastName : 'Perez',
-    avatarUrl : 'avatar',
+    firstName: 'Harper',
+    lastName: 'Perez',
+    avatarUrl: 'avatar',
   }
 
   return (

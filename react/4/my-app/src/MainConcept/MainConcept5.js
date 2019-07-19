@@ -23,12 +23,12 @@ class Clock extends React.Component {
   }
 
   componentWillUnmount() {
-    clearInterval( this.timerID );
+    clearInterval(this.timerID);
   }
 
   tick() {
-    this.setState( { date: new Date() } );
-    this.setState( state => ( { counter: ++state.counter } ) );
+    this.setState({ date: new Date() });
+    this.setState(state => ({ counter: ++state.counter }));
   }
 
   render() {
