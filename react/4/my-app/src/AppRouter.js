@@ -7,6 +7,7 @@ import MainConcept2 from './MainConcept/MainConcept2';
 import MainConcept4 from './MainConcept/MainConcept4';
 import MainConcept5 from './MainConcept/MainConcept5';
 import MainConcept6 from './MainConcept/MainConcept6';
+import MainConcept7 from './MainConcept/MainConcept7';
 
 function AppRouter() {
   return (
@@ -17,6 +18,7 @@ function AppRouter() {
       <Route path="/MainConcept4" component={MainConcept4} />
       <Route path="/MainConcept5" component={MainConcept5} />
       <Route path="/MainConcept6" component={MainConcept6} />
+      <Route path="/MainConcept7" component={MainConcept7} />
     </Router>
   );
 }
