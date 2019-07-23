@@ -12,6 +12,8 @@ function AppRouterList() {
         <li><Link to="/MainConcept6">6 이벤트 처리하기</Link></li>
         <li><Link to="/MainConcept7">7 조건부 렌더링</Link></li>
         <li><Link to="/MainConcept8">8 리스트와 Key</Link></li>
+        <li><Link to="/MainConcept9">9 폼</Link></li>
+        <li><Link to="/MainConcept10">10 State 끌어올리기</Link></li>
       </ul>
     </div>
   );
