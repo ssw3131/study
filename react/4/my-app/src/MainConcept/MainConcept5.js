@@ -41,8 +41,8 @@ class Clock extends React.Component {
     );
   }
 }
-class MainConcept5 extends React.Component {
 
+class MainConcept5 extends React.Component {
   render() {
     return (
       <div>

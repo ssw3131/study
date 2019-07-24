@@ -15,6 +15,7 @@ function AppRouterList() {
         <li><Link to="/MainConcept9">9 폼</Link></li>
         <li><Link to="/MainConcept10">10 State 끌어올리기</Link></li>
         <li><Link to="/MainConcept11">11 합성 vs 상속</Link></li>
+        <li><Link to="/MainConcept12">12 React로 생각하기</Link></li>
       </ul>
     </div>
   );

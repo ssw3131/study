@@ -1,7 +1,6 @@
 import React from 'react';
 
 class LogoutButton extends React.Component {
-
   render() {
     return (
       <button onClick={this.props.onClick}>
@@ -12,7 +11,6 @@ class LogoutButton extends React.Component {
 }
 
 class LoginButton extends React.Component {
-
   render() {
     return (
       <button onClick={this.props.onClick}>
@@ -23,7 +21,6 @@ class LoginButton extends React.Component {
 }
 
 class Greeting extends React.Component {
-
   render() {
     if (this.props.isLoggedIn) return <h1>Welcome back!</h1>;
     else return <h1>Please sign up.</h1>;
@@ -31,7 +28,6 @@ class Greeting extends React.Component {
 }
 
 class WarningBanner extends React.Component {
-
   render() {
     if (this.props.isLoggedIn) return null;
     else return <p>Warning</p>;

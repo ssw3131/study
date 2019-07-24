@@ -1,7 +1,6 @@
 import React from 'react';
 
 class FancyBorder extends React.Component {
-
   render() {
     return (
       <div className={'FancyBorder FancyBorder-' + this.props.color}>
@@ -12,7 +11,6 @@ class FancyBorder extends React.Component {
 }
 
 class Dialog extends React.Component {
-
   render() {
     return (
       <div>
@@ -30,7 +28,6 @@ class Dialog extends React.Component {
 }
 
 class WelcomeDialog extends React.Component {
-
   render() {
     return (
       <div>
@@ -45,7 +42,6 @@ class WelcomeDialog extends React.Component {
 //-------------------------------------------------------------------------------------------//
 
 class SplitPane extends React.Component {
-
   render() {
     return (
       <div className="SplitPane">
@@ -57,7 +53,6 @@ class SplitPane extends React.Component {
 }
 
 class SplitLeft extends React.Component {
-
   render() {
     return (
       <span>left</span>
@@ -66,7 +61,6 @@ class SplitLeft extends React.Component {
 }
 
 class SplitRight extends React.Component {
-
   render() {
     return (
       <span>right</span>
@@ -75,7 +69,6 @@ class SplitRight extends React.Component {
 }
 
 class SplitApp extends React.Component {
-
   render() {
     return (
       <SplitPane left={<SplitLeft />} right={<SplitRight />} />
@@ -86,7 +79,6 @@ class SplitApp extends React.Component {
 //-------------------------------------------------------------------------------------------//
 
 class MainConcept11 extends React.Component {
-
   render() {
     return (
       <div>

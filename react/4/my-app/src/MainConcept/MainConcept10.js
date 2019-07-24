@@ -19,7 +19,6 @@ function tryConvert(temperature, convert) {
 }
 
 class BoilingVerdict extends React.Component {
-
   render() {
     if (this.props.celsius >= 100) {
       return <p>The water would boil.</p>
@@ -91,7 +90,6 @@ class Calculator extends React.Component {
 }
 
 class MainConcept10 extends React.Component {
-
   render() {
     return (
       <Calculator />

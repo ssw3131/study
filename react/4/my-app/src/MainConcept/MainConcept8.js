@@ -1,7 +1,6 @@
 import React from 'react';
 
 class Sidebar extends React.Component {
-
   render() {
     const props = this.props;
 
@@ -14,7 +13,6 @@ class Sidebar extends React.Component {
 }
 
 class PostItem extends React.Component {
-
   render() {
     const props = this.props;
 
@@ -30,14 +28,13 @@ class PostItem extends React.Component {
 }
 
 class Blog extends React.Component {
-
   render() {
     const posts = this.props.posts;
-    const SidebarItems = posts.map(
-      post => <Sidebar key={post.id} id={post.id} title={post.title} />
+    const SidebarItems = posts.map(post =>
+      <Sidebar key={post.id} id={post.id} title={post.title} />
     );
-    // const PostItems = posts.map(
-    //   post => <PostItem key={post.id} title={post.title} content={post.content} />
+    // const PostItems = posts.map(post =>
+    //   <PostItem key={post.id} title={post.title} content={post.content} />
     // );
     // JSX 안에서 표현식을 사용할 수 도 있다
 
@@ -45,8 +42,8 @@ class Blog extends React.Component {
       <div>
         {SidebarItems}
         <hr />
-        {posts.map(
-          post => <PostItem key={post.id} title={post.title} content={post.content} />
+        {posts.map(post =>
+          <PostItem key={post.id} title={post.title} content={post.content} />
         )}
       </div>
     );
@@ -59,7 +56,6 @@ const posts = [
 ];
 
 class MainConcept8 extends React.Component {
-
   render() {
     return (
       <Blog posts={posts} />
