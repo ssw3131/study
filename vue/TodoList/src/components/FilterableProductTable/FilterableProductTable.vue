@@ -3,9 +3,7 @@
   <SearchBar
     v-bind:filterText='filterText' v-on:handleFiterText='handleFiterText'
     v-bind:inStockOnly='inStockOnly' v-on:handleInStockOnly='handleInStockOnly' />
-  <ProductTable
-    v-bind:products='PRODUCTS'
-    v-bind:filterText='filterText' v-bind:inStockOnly='inStockOnly' />
+  <ProductTable v-bind:products='PRODUCTS' v-bind:filterText='filterText' v-bind:inStockOnly='inStockOnly' />
 </div>
 </template>
 
@@ -34,10 +32,10 @@ export default {
       inStockOnly: false
     }
   },
-	methods: {
-		handleFiterText(filterText) {
+  methods: {
+    handleFiterText(filterText) {
       this.filterText = filterText;
-		},
+    },
     handleInStockOnly(inStockOnly) {
       this.inStockOnly = inStockOnly;
     }
