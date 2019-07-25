@@ -96,15 +96,31 @@ class SearchBar extends React.Component {
   }
 }
 
+const PRODUCTS = [
+  { category: "Sporting Goods", price: "$49.99", stocked: true, name: "Football" },
+  { category: "Sporting Goods", price: "$9.99", stocked: true, name: "Baseball" },
+  { category: "Sporting Goods", price: "$29.99", stocked: false, name: "Basketball" },
+  { category: "Electronics", price: "$99.99", stocked: true, name: "iPod Touch" },
+  { category: "Electronics", price: "$399.99", stocked: false, name: "iPhone 5" },
+  { category: "Electronics", price: "$199.99", stocked: true, name: "Nexus 7" }
+];
+
 class FilterableProductTable extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      PRODUCTS: PRODUCTS,
       filterText: '',
       inStockOnly: false
     };
     this.handleFiterText = this.handleFiterText.bind(this);
     this.handleInStockOnly = this.handleInStockOnly.bind(this);
+
+    setTimeout(() => {
+      var arr = this.state.PRODUCTS.concat();
+      arr.pop();
+      this.setState({ PRODUCTS: arr });
+    }, 2000);
   }
 
   handleFiterText(filterText) {
@@ -121,19 +137,10 @@ class FilterableProductTable extends React.Component {
         <SearchBar
           filterText={this.state.filterText} onChangeFiterText={this.handleFiterText}
           inStockOnly={this.state.inStockOnly} onChangeInStockOnly={this.handleInStockOnly} />
-        <ProductTable products={PRODUCTS} filterText={this.state.filterText} inStockOnly={this.state.inStockOnly} />
+        <ProductTable products={this.state.PRODUCTS} filterText={this.state.filterText} inStockOnly={this.state.inStockOnly} />
       </div>
     );
   }
 }
-
-const PRODUCTS = [
-  { category: "Sporting Goods", price: "$49.99", stocked: true, name: "Football" },
-  { category: "Sporting Goods", price: "$9.99", stocked: true, name: "Baseball" },
-  { category: "Sporting Goods", price: "$29.99", stocked: false, name: "Basketball" },
-  { category: "Electronics", price: "$99.99", stocked: true, name: "iPod Touch" },
-  { category: "Electronics", price: "$399.99", stocked: false, name: "iPhone 5" },
-  { category: "Electronics", price: "$199.99", stocked: true, name: "Nexus 7" }
-];
 
 export default FilterableProductTable;
